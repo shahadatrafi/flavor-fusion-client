@@ -18,7 +18,7 @@ import slider5 from '../../../assets/home/slide5.jpg'
 
 const Category = () => {
     return (
-        <div className='container mx-auto'>
+        <div className='container mx-auto mb-28'>
             <SectionTitle
                 subHeading={"---From 11:00am to 10:00pm---"}
                 heading={'ORDER ONLINE'}
@@ -35,18 +35,23 @@ const Category = () => {
                 >
                     <SwiperSlide>
                         <img src={slider1} alt="" />
+                        <div><h4 className='text-3xl text-center font-mono uppercase -mt-12 pb-16 text-white '>Salads</h4></div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={slider2} alt="" />
+                        <div><h4 className='text-3xl text-center font-mono uppercase -mt-12 pb-16 text-white '>pizzas</h4></div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={slider3} alt="" />
+                        <div><h4 className='text-3xl text-center font-mono uppercase -mt-12 pb-16 text-white '>Soups</h4></div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={slider4} alt="" />
+                        <div><h4 className='text-3xl text-center font-mono uppercase -mt-12 pb-16 text-white '>desserts</h4></div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <img src={slider5} alt="" />
+                        <div><h4 className='text-3xl text-center font-mono uppercase -mt-12 pb-16 text-white '>Salads</h4></div>
                     </SwiperSlide>
                 </Swiper>
             </div>
