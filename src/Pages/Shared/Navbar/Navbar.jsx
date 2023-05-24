@@ -25,8 +25,8 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <div className=' uppercase'>
-                        <a className="text-xl font-bold "><span className='font-bold'>Flavor</span> Fusion</a>
-                        <p className='font-semibold tracking-widest'>Restaurant</p>
+                        <a className="text-xl font-bold tracking-wide"><span>Flavor</span> Fusion</a>
+                        <p className='font-semibold tracking-[7px]'>Restaurant</p>
                     </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
