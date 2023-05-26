@@ -8,7 +8,10 @@ const PopularMenu = () => {
     useEffect(() => {
         fetch('menu.json')
             .then(res => res.json())
-            .then(data => setMenus(data));
+            .then(data => {
+                const popularItems = data.filter(item => item.category === 'popular')
+                setMenus(popularItems)
+            });
     },[])
 
     return (
@@ -18,7 +21,9 @@ const PopularMenu = () => {
                 subHeading="---Check it out---"
             ></SectionTitle>
             <div>
-                <h4>{ menus.length}</h4>
+                {
+                    menus.map(menu => <li>{menu.name}</li>)
+                }
             </div>
         </div>
     );
