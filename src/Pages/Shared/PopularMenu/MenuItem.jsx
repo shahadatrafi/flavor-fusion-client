@@ -6,10 +6,10 @@ const MenuItem = ({ item }) => {
         <div className='flex justify-between gap-4 items-center'>
             <img className='h-[100px] w-[118px] object-cover'style={{borderRadius: "0 200px 200px "}} src={image} alt="" />
             <div>
-                <h3>{name}</h3>
+                <h3 className='text-xl mb-2'>{name}------------</h3>
                 <p>{recipe}</p>
             </div>
-            <p>{price}</p>
+            <p className='text-xl text-yellow-600'>${price}</p>
         </div>
     );
 };
