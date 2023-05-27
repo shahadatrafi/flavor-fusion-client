@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SectionTitle from '../SectionTitle/SectionTitle';
+import MenuItem from './MenuItem';
 
 const PopularMenu = () => {
 
@@ -20,9 +21,12 @@ const PopularMenu = () => {
                 heading="FROM OUR MENU"
                 subHeading="---Check it out---"
             ></SectionTitle>
-            <div>
+            <div className='grid grid-cols-2 gap-6 mb-28'>
                 {
-                    menus.map(menu => <li>{menu.name}</li>)
+                    menus.map(item => <MenuItem
+                        key={item.id}
+                        item={item}
+                    ></MenuItem>)
                 }
             </div>
         </div>
