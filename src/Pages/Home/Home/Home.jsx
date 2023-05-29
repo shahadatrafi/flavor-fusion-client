@@ -6,11 +6,16 @@ import FeatureProduct from '../FeatureProduct/FeatureProduct';
 import Cover from '../../Shared/Cover/Cover';
 import bg from '../../../assets/home/chef-service.jpg'
 import Testimonial from '../Testimonial/Testimonial';
+import { Helmet } from 'react-helmet-async';
 
 
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                <title>Flavor Fusion | Home</title>
+            </Helmet>
+
             <Banner></Banner>
             <Category></Category>
             <Cover
