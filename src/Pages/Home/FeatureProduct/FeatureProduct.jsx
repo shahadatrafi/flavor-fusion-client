@@ -5,7 +5,7 @@ import './feature.css'
 
 const FeatureProduct = () => {
     return (
-        <div className='feature-item bg-fixed py-32'>
+        <div className='feature-item bg-fixed py-32 mb-28'>
             <div>
             <div className='container mx-auto z-10'>
             <SectionTitle
