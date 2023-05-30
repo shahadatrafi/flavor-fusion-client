@@ -22,6 +22,7 @@ const PopularMenu = () => {
                     ></MenuItem>)
                 }
             </div>
+            
         </div>
     );
 };
