@@ -1,53 +1,80 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import img from '../../assets/others/authentication2.png'
+import bgimg from '../../assets/others/authentication.png'
+
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
+import { useForm } from 'react-hook-form';
+import { updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2';
 
 
 const Registration = () => {
 
-    const handleSignUp = e => {
-        e.preventDefault();
-        const form = e.target;
-        const email = form.email.value;
-        const password = form.password.value;
-
-        console.log(email, password);
-    }
+    const { userSignUp } = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        console.log(data)
+        userSignUp(data.email, data.password)
+            .then(res => {
+                const loggedUser = res.user;
+                console.log(loggedUser);
+                    updateProfile(loggedUser, {
+                    displayName: data.name
+                    })
+                        .then(() => {
+                         console.log('Profile updated');
+                        })
+                        .catch(err => {
+                            console.error(err.message);
+                        })
+                        Swal.fire(
+                            'Well Done!',
+                            'You created account successfully...!',
+                            'success'
+                          )
+            })
+            .catch(err => {
+                console.error('error is', err.message);
+            })
+    };
 
     return (
-        <div className="hero container mx-auto py-10 my-10 border-2 shadow-xl ">
+        <div className="hero container mx-auto py-10 my-10 border-2 shadow-xl " style={{ backgroundImage: `url(${bgimg})` }}>
             <div className="hero-content flex-col lg:flex-row items-center">
                 <div className="md:w-1/2">
                     <img className='w-full' src={img} alt="" />
                 </div>
                 <div className="card flex-shrink-0 w-full md:w-1/2  ">
                     <h1 className="text-4xl font-bold text-center">Sign Up!</h1>
-                    <form onSubmit={handleSignUp} className="card-body">
-                        <div className="form-control"> 
+                    <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+                        <div className="form-control ">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" {...register("name", { required: true })} name='name' placeholder="Your Name" className="input input-bordered mb-2" />
+                            {errors.name && <span className='text-red-600 ml-2'>Shit man...! You Have A Beautiful Name. Put It Here</span>}
+                        </div>
+                        <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="text" name='email' placeholder="email" className="input input-bordered" />
+                            <input type="text" {...register("email", { required: true })} name='email' placeholder="email" className="input input-bordered mb-2" />
+                            {errors.email && <span className='text-red-600 ml-2'>Shit man...! You Have To Put Your Email Here</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" name='password' placeholder="password" className="input input-bordered" />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
-                        </div>
-                        <div className="form-control ">
-                            <label className="label">
-                            <span className="label-text">Password</span>
-                            </label>
-                            <input type="text" placeholder="Type the captcha" className="input input-bordered" />
+                            <input type="password" {...register("password", { required: true })} name='password' placeholder="password" className="input input-bordered mb-2" />
+                            {errors.password && <span className='text-red-600 ml-2'>Type a password...</span>}
                         </div>
                         <div className="form-control mt-6">
                             <input className="btn bg-yellow-600 border-0 hover:bg-yellow-700" type="submit" value="Login" />
                         </div>
                     </form>
+                    <p className='text-center mb-3'>Already registered?<Link className='font-semibold' to='/login'> Go to log in</Link></p>
                     <SocialLogin></SocialLogin>
                 </div>
             </div>

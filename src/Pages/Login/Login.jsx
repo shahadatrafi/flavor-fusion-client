@@ -1,9 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import img from '../../assets/others/authentication2.png'
+import bgimg from '../../assets/others/authentication.png'
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
 const Login = () => {
+
+    const { userLogIn } = useContext(AuthContext);
+
     const [disable, setDisable] = useState(true);
     const captchaRef = useRef();
 
@@ -17,7 +24,14 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        console.log(email, password);
+        userLogIn(email, password)
+            .then(res => {
+                const loggedUser = res.user;
+                console.log(loggedUser)
+            })
+            .catch(err => {
+            console.error(err.message);
+        })
     }
 
     const handleBlur = () => {
@@ -30,7 +44,7 @@ const Login = () => {
     }
 
     return (
-        <div className="hero container mx-auto py-10 my-10 border-2 shadow-xl ">
+        <div className="hero container mx-auto py-10 my-10 border-2 shadow-xl " style={{backgroundImage: `url(${bgimg})`}}>
             <div className="hero-content flex-col lg:flex-row items-center">
                 <div className="md:w-1/2">
                     <img className='w-full' src={img} alt="" />
@@ -63,6 +77,7 @@ const Login = () => {
                             <input disabled={disable} className="btn bg-yellow-600 border-0 hover:bg-yellow-700" type="submit" value="Login" />
                         </div>
                     </form>
+                    <p className='text-center mb-3'>New here? <Link className='font-semibold' to='/sign-up'>Create a New Account</Link></p>
                     <SocialLogin></SocialLogin>
                 </div>
             </div>
