@@ -3,7 +3,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import img from '../../assets/others/authentication2.png'
 import bgimg from '../../assets/others/authentication.png'
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 
@@ -17,6 +17,10 @@ const Login = () => {
     useEffect(() => {
         loadCaptchaEnginge(6);
     }, [])
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/';
     
     const handleLogin = e => {
         e.preventDefault();
@@ -28,6 +32,7 @@ const Login = () => {
             .then(res => {
                 const loggedUser = res.user;
                 console.log(loggedUser)
+                navigate(from, {replace: true})
             })
             .catch(err => {
             console.error(err.message);

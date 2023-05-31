@@ -3,7 +3,7 @@ import img from '../../assets/others/authentication2.png'
 import bgimg from '../../assets/others/authentication.png'
 
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { updateProfile } from 'firebase/auth';
@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 
 
 const Registration = () => {
+
+    const navigate = useNavigate();
 
     const { userSignUp } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -20,20 +22,21 @@ const Registration = () => {
             .then(res => {
                 const loggedUser = res.user;
                 console.log(loggedUser);
-                    updateProfile(loggedUser, {
+                updateProfile(loggedUser, {
                     displayName: data.name
+                })
+                    .then(() => {
+                        console.log('Profile updated');
                     })
-                        .then(() => {
-                         console.log('Profile updated');
-                        })
-                        .catch(err => {
-                            console.error(err.message);
-                        })
-                        Swal.fire(
-                            'Well Done!',
-                            'You created account successfully...!',
-                            'success'
-                          )
+                    .catch(err => {
+                        console.error(err.message);
+                    })
+                Swal.fire(
+                    'Well Done!',
+                    'You created account successfully...!',
+                    'success'
+                )
+                navigate('/');
             })
             .catch(err => {
                 console.error('error is', err.message);
