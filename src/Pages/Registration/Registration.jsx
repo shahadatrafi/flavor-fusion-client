@@ -1,32 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import React from 'react';
 import img from '../../assets/others/authentication2.png'
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
-const Login = () => {
-    const [disable, setDisable] = useState(true);
-    const captchaRef = useRef();
 
-    useEffect(() => {
-        loadCaptchaEnginge(6);
-    }, [])
-    
-    const handleLogin = e => {
+const Registration = () => {
+
+    const handleSignUp = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
 
         console.log(email, password);
-    }
-
-    const handleBlur = () => {
-        const userCaptchaValue = captchaRef.current.value;
-        if (validateCaptcha(userCaptchaValue) === true) {
-            setDisable(false)
-        } else {
-            setDisable(true)
-        }
     }
 
     return (
@@ -36,9 +21,9 @@ const Login = () => {
                     <img className='w-full' src={img} alt="" />
                 </div>
                 <div className="card flex-shrink-0 w-full md:w-1/2  ">
-                <h1 className="text-4xl font-bold text-center">Login now!</h1>
-                    <form onSubmit={handleLogin} className="card-body">
-                        <div className="form-control">
+                    <h1 className="text-4xl font-bold text-center">Sign Up!</h1>
+                    <form onSubmit={handleSignUp} className="card-body">
+                        <div className="form-control"> 
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
@@ -55,12 +40,12 @@ const Login = () => {
                         </div>
                         <div className="form-control ">
                             <label className="label">
-                            <LoadCanvasTemplate />
+                            <span className="label-text">Password</span>
                             </label>
-                            <input type="text" ref={captchaRef} onBlur={handleBlur} placeholder="Type the captcha" className="input input-bordered" />
+                            <input type="text" placeholder="Type the captcha" className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
-                            <input disabled={disable} className="btn bg-yellow-600 border-0 hover:bg-yellow-700" type="submit" value="Login" />
+                            <input className="btn bg-yellow-600 border-0 hover:bg-yellow-700" type="submit" value="Login" />
                         </div>
                     </form>
                     <SocialLogin></SocialLogin>
@@ -70,4 +55,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Registration;
