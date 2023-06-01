@@ -1,19 +1,20 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../providers/AuthProvider/AuthProvider';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Navbar = () => {
 
-    const {user, userSignOut } = useContext(AuthContext);
+    const { user, userSignOut } = useContext(AuthContext);
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         userSignOut()
-        .then(() => {
-            console.log('successfully logged out')
-        })
+            .then(() => {
+                console.log('successfully logged out')
+            })
             .catch((err) => {
-            console.error(err.message)
-        })
+                console.error(err.message)
+            })
     }
 
     const navigation = <>
@@ -23,6 +24,10 @@ const Navbar = () => {
         <li><Link to="/our-menu">Our Menu</Link></li>
         <li><Link to="/our-shop">Our Shop</Link></li>
         <li><Link to="/secrete">Secrete</Link></li>
+        <li><Link>
+        <FaShoppingCart/>
+            <div className="badge badge-secondary">+99</div>
+        </Link></li>
         {user ?
             <><li><Link onClick={handleLogOut}>Log out</Link></li></> :
             <><li><Link to="/login">Login</Link></li></>
