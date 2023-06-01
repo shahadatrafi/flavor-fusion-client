@@ -78,8 +78,9 @@ const Login = () => {
                             </label>
                             <input type="text" ref={captchaRef} onBlur={handleBlur} placeholder="Type the captcha" className="input input-bordered" />
                         </div>
+                        {/* TO DO : need to button disable */}
                         <div className="form-control mt-6">
-                            <input disabled={disable} className="btn bg-yellow-600 border-0 hover:bg-yellow-700" type="submit" value="Login" />
+                            <input disabled={false} className="btn bg-yellow-600 border-0 hover:bg-yellow-700" type="submit" value="Login" />
                         </div>
                     </form>
                     <p className='text-center mb-3'>New here? <Link className='font-semibold' to='/sign-up'>Create a New Account</Link></p>
