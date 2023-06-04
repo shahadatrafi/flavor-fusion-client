@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { FaShoppingCart, FaWallet, FaCalendarAlt, FaHome, FaUtensils, FaBook, FaUsers } from 'react-icons/fa';
+import useCart from '../../hooks/useCart';
 
 
 const Dashboard = () => {
+
+  const [cart] = useCart();
+
   return (
     <div className='container mx-auto'>
       <div className="drawer drawer-mobile ">
@@ -27,12 +31,12 @@ const Dashboard = () => {
             <li><NavLink to="/dashboard/home"><FaHome></FaHome> User Home</NavLink></li>
             <li><NavLink to="/dashboard/reservations"><FaCalendarAlt></FaCalendarAlt> Reservations</NavLink></li>
             <li><NavLink to="/dashboard/history"><FaWallet></FaWallet> Payment History</NavLink></li>
-            <li>
+            {cart && <li>
               <NavLink to="/dashboard/cart"><FaShoppingCart></FaShoppingCart> My Cart
-                <span className="badge inl badge-secondary">+0</span>
+                  <span className="badge inl badge-secondary">{ cart.length || 0}</span>
               </NavLink>
 
-            </li>
+            </li>}
           </>
 
           <div className="divider"></div>

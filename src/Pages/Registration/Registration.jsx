@@ -17,26 +17,43 @@ const Registration = () => {
     const { userSignUp } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data)
         userSignUp(data.email, data.password)
             .then(res => {
+
                 const loggedUser = res.user;
                 console.log(loggedUser);
+
                 updateProfile(loggedUser, {
                     displayName: data.name
                 })
                     .then(() => {
-                        console.log('Profile updated');
+
+                        const newUser = { name: data.name, email: data.email }
+
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(newUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    Swal.fire(
+                                        'Well Done!',
+                                        'You created account successfully...!',
+                                        'success'
+                                    )
+                                    navigate('/');
+                                }
+                            })
                     })
                     .catch(err => {
                         console.error(err.message);
                     })
-                Swal.fire(
-                    'Well Done!',
-                    'You created account successfully...!',
-                    'success'
-                )
-                navigate('/');
+
+
             })
             .catch(err => {
                 console.error('error is', err.message);
