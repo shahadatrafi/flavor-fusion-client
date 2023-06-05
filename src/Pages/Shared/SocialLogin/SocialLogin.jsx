@@ -2,6 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import { AuthContext } from '../../../providers/AuthProvider/AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SocialLogin = () => {
 
@@ -16,27 +17,25 @@ const SocialLogin = () => {
             .then(res => {
                 const loggedUser = res.user;
                 console.log(loggedUser);
-                
+
                 const newUser = { name: loggedUser.displayName, email: loggedUser.email }
 
-                        fetch('http://localhost:5000/users', {
-                            method: 'POST',
-                            headers: {
-                                'content-type': 'application/json'
-                            },
-                            body: JSON.stringify(newUser)
-                        })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.insertedId) {
-                                    navigate(from, { replace: true });
-                                }
-                            })
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        navigate(from, { replace: true })
+                    })
             })
             .catch(err => {
                 console.error(err.message);
-        })
-    } 
+            })
+    }
 
     return (
         <div className=' text-center px-16 '>
